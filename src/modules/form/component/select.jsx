@@ -3,16 +3,18 @@ import PropTypes from "prop-types";
 
 const Select = ({ id, text, options, value, onChange }) => (
   <div className="form-group">
-    <label htmlFor={id}>{text}</label>
-    <select id={id} value={value} onChange={onChange}>
-      {options.map(option => {
-        return (
-          <option key={option._id} value={option._id}>
-            {option.name}
-          </option>
-        );
-      })}
-    </select>
+    <label>
+      {text}
+      <select id={id} value={value} onChange={onChange}>
+        {options.map(option => {
+          return (
+            <option key={option._id} value={option._id}>
+              {option.name}
+            </option>
+          );
+        })}
+      </select>
+    </label>
   </div>
 );
 

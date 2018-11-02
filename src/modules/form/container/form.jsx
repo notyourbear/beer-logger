@@ -8,45 +8,42 @@ class FormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      beer: "",
-      user: "",
-      location: ""
+      beer: props.beer.length ? props.beer[0] : {},
+      user: props.user.length ? props.user[0] : {},
+      location: props.location.length ? props.location[0] : {}
     };
   }
 
-  cleanForm = () => {
-    this.setState({
-      beer: "",
-      user: "",
-      location: ""
-    });
-  };
-
   handleChange = event => {
-    this.setState({ [event.target.id]: event.target.value });
+    let id = event.target.id;
+    let item = this.props[id].find(item => {
+      return event.target.value === item._id;
+    });
+    this.setState({ [id]: item });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    let toSend = {};
-    toSend[this.state.key] = this.state.value;
-
-    let responsePromise = fetch(`${API_SERVER_URI}drink`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(toSend)
-    });
-
-    responsePromise
-      .then(response => response.json())
-      .then(data => {
-        this.state.handleStateUpdate(data);
-        this.cleanForm();
-      })
-      .catch(err => console.error(err));
+    console.log(this.state);
+    // let toSend = {};
+    // toSend[this.state.key] = this.state.value;
+    //
+    // let responsePromise = fetch(`${API_SERVER_URI}drink`, {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(toSend)
+    // });
+    //
+    // responsePromise
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     this.state.handleStateUpdate(data);
+    //     this.cleanForm();
+    //   })
+    //   .catch(err => console.error(err));
   };
 
   render() {
@@ -54,28 +51,27 @@ class FormContainer extends Component {
     let availableBeers = this.props.beer;
     let availableUsers = this.props.user;
     let availableLocations = this.props.location;
-    console.log({ props: this.props, availableBeers });
     return (
       <form id="form" onSubmit={this.handleSubmit}>
         <Select
           text="User"
           id="user"
           options={availableUsers}
-          value={user}
+          value={user._id}
           onChange={this.handleChange}
         />
         <Select
           text="Beer"
           id="beer"
           options={availableBeers}
-          value={beer}
+          value={beer._id}
           onChange={this.handleChange}
         />
         <Select
           text="Location"
           id="location"
           options={availableLocations}
-          value={location}
+          value={location._id}
           onChange={this.handleChange}
         />
         <button className="btn btn-small btn-primary">Submit</button>
