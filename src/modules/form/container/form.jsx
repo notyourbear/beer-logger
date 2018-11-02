@@ -1,25 +1,24 @@
 import React, { Component } from "react";
 import Input from "../component/input.jsx";
+import Select from "../component/select.jsx";
 
 import { API_SERVER_URI } from "../../../config";
 
 class FormContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      key: "",
-      value: ""
+      beer: "",
+      user: "",
+      location: ""
     };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    return props;
   }
 
   cleanForm = () => {
     this.setState({
-      key: "",
-      value: ""
+      beer: "",
+      user: "",
+      location: ""
     });
   };
 
@@ -32,7 +31,7 @@ class FormContainer extends Component {
     let toSend = {};
     toSend[this.state.key] = this.state.value;
 
-    let responsePromise = fetch(API_SERVER_URI, {
+    let responsePromise = fetch(`${API_SERVER_URI}drink`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -51,24 +50,33 @@ class FormContainer extends Component {
   };
 
   render() {
-    const { key, value } = this.state;
+    let { beer, user, location } = this.state;
+    let availableBeers = this.props.beer;
+    let availableUsers = this.props.user;
+    let availableLocations = this.props.location;
+    console.log({ props: this.props, availableBeers });
     return (
       <form id="form" onSubmit={this.handleSubmit}>
-        <Input
-          text="Key"
-          label="Key"
-          type="text"
-          id="key"
-          value={key}
-          handleChange={this.handleChange}
+        <Select
+          text="User"
+          id="user"
+          options={availableUsers}
+          value={user}
+          onChange={this.handleChange}
         />
-        <Input
-          text="Value"
-          label="Value"
-          type="text"
-          id="value"
-          value={value}
-          handleChange={this.handleChange}
+        <Select
+          text="Beer"
+          id="beer"
+          options={availableBeers}
+          value={beer}
+          onChange={this.handleChange}
+        />
+        <Select
+          text="Location"
+          id="location"
+          options={availableLocations}
+          value={location}
+          onChange={this.handleChange}
         />
         <button className="btn btn-small btn-primary">Submit</button>
       </form>
