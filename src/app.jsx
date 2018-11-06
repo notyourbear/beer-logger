@@ -3,21 +3,24 @@ import "whatwg-fetch";
 
 import React, { Component } from "react";
 import { hot } from "react-hot-loader";
+import { Router, Link } from "@reach/router";
 
 import Form from "./modules/form/container/form.jsx";
+import SignIn from "./modules/form/container/signin.jsx";
 
-import { API_SERVER_URI, API_GETS } from "./config";
+import { API_SERVER_URI, API_GETS, LOGIN_SERVER_URI } from "./config";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      loading: true,
       data: {
-        beer: null,
-        location: null,
-        user: null
-      }
+        beer: [],
+        location: [],
+        user: []
+      },
+      key: "",
+      loading: true
     };
   }
 
@@ -38,19 +41,39 @@ class App extends Component {
       });
   }
 
+  login = data => {
+    if (!data.username || !data.password) return;
+    fetch(`${LOGIN_SERVER_URI}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: data
+    })
+      .then(response => response.json())
+      .then(data => console.log("ze data:", data))
+      .catch(err => console.error(err));
+  };
+
   render() {
-    let { beer, user, location } = this.state.data;
+    let { beer, user } = this.state.data;
+    let locations = this.state.data.location;
     let { loading } = this.state;
+
     return (
-      <main className="container">
-        <section className="row justify-content-center">
-          <div className="col-6">
-            {loading ? null : (
-              <Form beer={beer} user={user} location={location} />
-            )}
-          </div>
-        </section>
-      </main>
+      <>
+        <nav>
+          <Link to="/">Home</Link> <Link to="/signin">Sign In</Link>
+        </nav>
+        <main className="container">
+          {loading ? null : (
+            <Router>
+              <Form path="/" beer={beer} user={user} locations={locations} />
+              <SignIn path="/signin" handleSubmit={this.login} />
+            </Router>
+          )}
+        </main>
+      </>
     );
   }
 }

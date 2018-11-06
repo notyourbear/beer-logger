@@ -10,7 +10,7 @@ class FormContainer extends Component {
     this.state = {
       beer: props.beer.length ? props.beer[0] : {},
       user: props.user.length ? props.user[0] : {},
-      location: props.location.length ? props.location[0] : {},
+      locations: props.locations.length ? props.locations[0] : {},
       newLocation: false,
       newLocationName: "",
       newUser: false,
@@ -27,7 +27,7 @@ class FormContainer extends Component {
     let data = {};
 
     data.location = !newLocation
-      ? this.state.location._id
+      ? this.state.locations._id
       : { name: this.state.newLocationName };
 
     data.user = !newUser
@@ -95,7 +95,7 @@ class FormContainer extends Component {
     let {
       beer,
       user,
-      location,
+      locations,
       newBeer,
       newLocation,
       newUser,
@@ -107,7 +107,8 @@ class FormContainer extends Component {
     } = this.state;
     let availableBeers = this.props.beer;
     let availableUsers = this.props.user;
-    let availableLocations = this.props.location;
+    let availableLocations = this.props.locations;
+    console.log({ availableBeers, availableUsers, availableLocations });
     return (
       <form id="form" onSubmit={this.handleSubmit}>
         <Checkbox
@@ -190,7 +191,7 @@ class FormContainer extends Component {
             text="Location"
             id="location"
             options={availableLocations}
-            value={location._id}
+            value={locations._id}
             onChange={this.handleSelectChange}
           />
         ) : (
