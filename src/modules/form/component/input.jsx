@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Input = ({ label, text, type, id, value, handleChange }) => (
+const Input = ({ label, text, type, id, value, onChange }) => (
   <div className="form-group">
     <label>
       {label}
@@ -10,8 +10,8 @@ const Input = ({ label, text, type, id, value, handleChange }) => (
         className="form-control"
         id={id}
         value={value}
-        onChange={handleChange}
-        onBlur={handleChange}
+        onChange={onChange}
+        onBlur={onChange}
         required
       />
     </label>
@@ -24,7 +24,7 @@ Input.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired
 };
 
 export default Input;

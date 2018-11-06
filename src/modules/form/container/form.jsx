@@ -13,7 +13,11 @@ class FormContainer extends Component {
       location: props.location.length ? props.location[0] : {},
       newBeer: false,
       newLocation: false,
-      newUser: false
+      newUser: false,
+      newUserName: "",
+      newBeerName: "",
+      newBreweryName: "",
+      newBeerType: ""
     };
   }
 
@@ -25,10 +29,15 @@ class FormContainer extends Component {
     this.setState({ [id]: item });
   };
 
-  handleInputChange = event => {
+  handleCheckboxChange = event => {
     let id = event.target.id;
     let value = event.target.checked;
-    console.log(event.target, { value });
+    this.setState({ [id]: value }, () => console.log(this.state));
+  };
+
+  handleInputChange = event => {
+    let id = event.target.id;
+    let value = event.target.value;
     this.setState({ [id]: value }, () => console.log(this.state));
   };
 
@@ -57,13 +66,32 @@ class FormContainer extends Component {
   };
 
   render() {
-    let { beer, user, location, newBeer, newLocation, newUser } = this.state;
+    let {
+      beer,
+      user,
+      location,
+      newBeer,
+      newLocation,
+      newUser,
+      newUserName,
+      newBeerName,
+      newBreweryName,
+      newBeerType
+    } = this.state;
     let availableBeers = this.props.beer;
     let availableUsers = this.props.user;
     let availableLocations = this.props.location;
+    console.log({ availableBeers, availableLocations });
     return (
       <form id="form" onSubmit={this.handleSubmit}>
-        {newUser ? null : (
+        <Checkbox
+          label="is it a new user?"
+          text="newUser"
+          id="newUser"
+          value={newUser}
+          onChange={this.handleCheckboxChange}
+        />
+        {!newUser ? (
           <Select
             text="User"
             id="user"
@@ -71,21 +99,14 @@ class FormContainer extends Component {
             value={user._id}
             onChange={this.handleSelectChange}
           />
-        )}
-        <Checkbox
-          label="is it a new user?"
-          text="newUser"
-          id="newUser"
-          value={newUser}
-          onChange={this.handleInputChange}
-        />
-        {newBeer ? null : (
-          <Select
-            text="Beer"
-            id="beer"
-            options={availableBeers}
-            value={beer._id}
-            onChange={this.handleSelectChange}
+        ) : (
+          <Input
+            text="enter"
+            type="text"
+            id="newUserName"
+            label="user name"
+            value={newUserName}
+            onChange={this.handleInputChange}
           />
         )}
         <Checkbox
@@ -93,8 +114,45 @@ class FormContainer extends Component {
           text="newBeer"
           id="newBeer"
           value={newBeer}
-          onChange={this.handleInputChange}
+          onChange={this.handleCheckboxChange}
         />
+        {!newBeer ? (
+          <Select
+            text="Beer"
+            id="beer"
+            options={availableBeers}
+            value={beer._id}
+            onChange={this.handleSelectChange}
+          />
+        ) : (
+          <>
+            <Input
+              text="enter"
+              type="text"
+              id="newBeerName"
+              label="beer name"
+              value={newBeerName}
+              onChange={this.handleInputChange}
+            />
+            <Input
+              text="enter"
+              type="text"
+              id="newBreweryName"
+              label="brewery"
+              value={newBreweryName}
+              onChange={this.handleInputChange}
+            />
+            <Input
+              text="enter"
+              type="text"
+              id="newBeerType"
+              label="type"
+              value={newBeerType}
+              onChange={this.handleInputChange}
+            />
+          </>
+        )}
+
         {newLocation ? null : (
           <Select
             text="Location"
@@ -109,7 +167,7 @@ class FormContainer extends Component {
           text="newLocation"
           id="newLocation"
           value={newLocation}
-          onChange={this.handleInputChange}
+          onChange={this.handleCheckboxChange}
         />
         <button className="btn btn-small btn-primary">Submit</button>
       </form>
