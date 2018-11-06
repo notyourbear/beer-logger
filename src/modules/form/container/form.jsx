@@ -11,14 +11,38 @@ class FormContainer extends Component {
       beer: props.beer.length ? props.beer[0] : {},
       user: props.user.length ? props.user[0] : {},
       location: props.location.length ? props.location[0] : {},
-      newBeer: false,
       newLocation: false,
+      newLocationName: "",
       newUser: false,
       newUserName: "",
+      newBeer: false,
       newBeerName: "",
       newBreweryName: "",
       newBeerType: ""
     };
+  }
+
+  composeSubmitData() {
+    let { newBeer, newLocation, newUser } = this.state;
+    let data = {};
+
+    data.location = !newLocation
+      ? this.state.location._id
+      : { name: this.state.newLocationName };
+
+    data.user = !newUser
+      ? this.state.user._id
+      : { name: this.state.newUserName };
+
+    data.beer = !newBeer
+      ? this.state.beer._id
+      : {
+          name: this.state.newBeerName,
+          brewery: this.state.newBreweryName,
+          type: this.state.newBeerType
+        };
+
+    return data;
   }
 
   handleSelectChange = event => {
@@ -32,18 +56,20 @@ class FormContainer extends Component {
   handleCheckboxChange = event => {
     let id = event.target.id;
     let value = event.target.checked;
-    this.setState({ [id]: value }, () => console.log(this.state));
+    this.setState({ [id]: value });
   };
 
   handleInputChange = event => {
     let id = event.target.id;
     let value = event.target.value;
-    this.setState({ [id]: value }, () => console.log(this.state));
+    this.setState({ [id]: value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
+    let data = this.composeSubmitData();
+
+    console.log({ data });
     // let toSend = {};
     // toSend[this.state.key] = this.state.value;
     //
@@ -76,12 +102,12 @@ class FormContainer extends Component {
       newUserName,
       newBeerName,
       newBreweryName,
-      newBeerType
+      newBeerType,
+      newLocationName
     } = this.state;
     let availableBeers = this.props.beer;
     let availableUsers = this.props.user;
     let availableLocations = this.props.location;
-    console.log({ availableBeers, availableLocations });
     return (
       <form id="form" onSubmit={this.handleSubmit}>
         <Checkbox
@@ -152,16 +178,6 @@ class FormContainer extends Component {
             />
           </>
         )}
-
-        {newLocation ? null : (
-          <Select
-            text="Location"
-            id="location"
-            options={availableLocations}
-            value={location._id}
-            onChange={this.handleSelectChange}
-          />
-        )}
         <Checkbox
           label="is it a new location?"
           text="newLocation"
@@ -169,6 +185,25 @@ class FormContainer extends Component {
           value={newLocation}
           onChange={this.handleCheckboxChange}
         />
+        {!newLocation ? (
+          <Select
+            text="Location"
+            id="location"
+            options={availableLocations}
+            value={location._id}
+            onChange={this.handleSelectChange}
+          />
+        ) : (
+          <Input
+            text="enter"
+            type="text"
+            id="newLocationName"
+            label="location"
+            value={newLocationName}
+            onChange={this.handleInputChange}
+          />
+        )}
+
         <button className="btn btn-small btn-primary">Submit</button>
       </form>
     );
