@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Input from "../component/input.jsx";
 import Select from "../component/select.jsx";
-
+import Checkbox from "../component/checkbox.jsx";
 import { API_SERVER_URI } from "../../../config";
 
 class FormContainer extends Component {
@@ -10,16 +10,26 @@ class FormContainer extends Component {
     this.state = {
       beer: props.beer.length ? props.beer[0] : {},
       user: props.user.length ? props.user[0] : {},
-      location: props.location.length ? props.location[0] : {}
+      location: props.location.length ? props.location[0] : {},
+      newBeer: false,
+      newLocation: false,
+      newUser: false
     };
   }
 
-  handleChange = event => {
+  handleSelectChange = event => {
     let id = event.target.id;
     let item = this.props[id].find(item => {
       return event.target.value === item._id;
     });
     this.setState({ [id]: item });
+  };
+
+  handleInputChange = event => {
+    let id = event.target.id;
+    let value = event.target.checked;
+    console.log(event.target, { value });
+    this.setState({ [id]: value }, () => console.log(this.state));
   };
 
   handleSubmit = event => {
@@ -47,32 +57,59 @@ class FormContainer extends Component {
   };
 
   render() {
-    let { beer, user, location } = this.state;
+    let { beer, user, location, newBeer, newLocation, newUser } = this.state;
     let availableBeers = this.props.beer;
     let availableUsers = this.props.user;
     let availableLocations = this.props.location;
     return (
       <form id="form" onSubmit={this.handleSubmit}>
-        <Select
-          text="User"
-          id="user"
-          options={availableUsers}
-          value={user._id}
-          onChange={this.handleChange}
+        {newUser ? null : (
+          <Select
+            text="User"
+            id="user"
+            options={availableUsers}
+            value={user._id}
+            onChange={this.handleSelectChange}
+          />
+        )}
+        <Checkbox
+          label="is it a new user?"
+          text="newUser"
+          id="newUser"
+          value={newUser}
+          onChange={this.handleInputChange}
         />
-        <Select
-          text="Beer"
-          id="beer"
-          options={availableBeers}
-          value={beer._id}
-          onChange={this.handleChange}
+        {newBeer ? null : (
+          <Select
+            text="Beer"
+            id="beer"
+            options={availableBeers}
+            value={beer._id}
+            onChange={this.handleSelectChange}
+          />
+        )}
+        <Checkbox
+          label="is it a new beer?"
+          text="newBeer"
+          id="newBeer"
+          value={newBeer}
+          onChange={this.handleInputChange}
         />
-        <Select
-          text="Location"
-          id="location"
-          options={availableLocations}
-          value={location._id}
-          onChange={this.handleChange}
+        {newLocation ? null : (
+          <Select
+            text="Location"
+            id="location"
+            options={availableLocations}
+            value={location._id}
+            onChange={this.handleSelectChange}
+          />
+        )}
+        <Checkbox
+          label="is it a new location?"
+          text="newLocation"
+          id="newLocation"
+          value={newLocation}
+          onChange={this.handleInputChange}
         />
         <button className="btn btn-small btn-primary">Submit</button>
       </form>

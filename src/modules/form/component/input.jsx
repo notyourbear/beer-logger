@@ -3,16 +3,18 @@ import PropTypes from "prop-types";
 
 const Input = ({ label, text, type, id, value, handleChange }) => (
   <div className="form-group">
-    <label htmlFor={label}>{text}</label>
-    <input
-      type={type}
-      className="form-control"
-      id={id}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleChange}
-      required
-    />
+    <label>
+      {label}
+      <input
+        type={type}
+        className="form-control"
+        id={id}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleChange}
+        required
+      />
+    </label>
   </div>
 );
 
