@@ -69,7 +69,6 @@ class FormContainer extends Component {
     event.preventDefault();
     let data = this.composeSubmitData();
 
-    console.log({ data });
     // let toSend = {};
     // toSend[this.state.key] = this.state.value;
     //

@@ -19,7 +19,7 @@ class App extends Component {
         location: [],
         user: []
       },
-      key: "",
+      token: "",
       loading: true
     };
   }
@@ -45,20 +45,23 @@ class App extends Component {
     if (!data.username || !data.password) return;
     fetch(`${LOGIN_SERVER_URI}`, {
       method: "POST",
+      mode: "cors",
       headers: {
-        "Content-Type": "application/json; charset=utf-8"
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
-      body: data
+      body: JSON.stringify({ data })
     })
+      .then(handleErrors)
       .then(response => response.json())
-      .then(data => console.log("ze data:", data))
+      .then(data => this.setState({ token: data.token }))
       .catch(err => console.error(err));
   };
 
   render() {
     let { beer, user } = this.state.data;
+    let { token, loading } = this.state;
     let locations = this.state.data.location;
-    let { loading } = this.state;
 
     return (
       <>
@@ -68,7 +71,13 @@ class App extends Component {
         <main className="container">
           {loading ? null : (
             <Router>
-              <Form path="/" beer={beer} user={user} locations={locations} />
+              <Form
+                path="/"
+                beer={beer}
+                user={user}
+                locations={locations}
+                token={token}
+              />
               <SignIn path="/signin" handleSubmit={this.login} />
             </Router>
           )}
@@ -76,6 +85,13 @@ class App extends Component {
       </>
     );
   }
+}
+
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
 }
 
 export default hot(module)(App);
