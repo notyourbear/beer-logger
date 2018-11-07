@@ -3,7 +3,7 @@ import "whatwg-fetch";
 
 import React, { Component } from "react";
 import { hot } from "react-hot-loader";
-import { Router, Link } from "@reach/router";
+import { Router, Link, navigate } from "@reach/router";
 
 import Form from "./modules/form/container/form.jsx";
 import SignIn from "./modules/form/container/signin.jsx";
@@ -41,6 +41,25 @@ class App extends Component {
       });
   }
 
+  addDrink = data => {
+    console.log({ data, token: this.state.token });
+    if (!this.state.token.length) return console.error("no token provided");
+    fetch(`${API_SERVER_URI}drink`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: `Bearer ${this.state.token}`
+      },
+      body: JSON.stringify({ data })
+    })
+      .then(handleErrors)
+      .then(response => response.json())
+      .then(data => console.log({ data }, "set"))
+      .catch(err => console.error(err));
+  };
+
   login = data => {
     if (!data.username || !data.password) return;
     fetch(`${LOGIN_SERVER_URI}`, {
@@ -54,7 +73,11 @@ class App extends Component {
     })
       .then(handleErrors)
       .then(response => response.json())
-      .then(data => this.setState({ token: data.token }))
+      .then(data =>
+        this.setState({ token: data.token }, () => {
+          navigate("/");
+        })
+      )
       .catch(err => console.error(err));
   };
 
@@ -76,7 +99,7 @@ class App extends Component {
                 beer={beer}
                 user={user}
                 locations={locations}
-                token={token}
+                handleSubmit={this.addDrink}
               />
               <SignIn path="/signin" handleSubmit={this.login} />
             </Router>

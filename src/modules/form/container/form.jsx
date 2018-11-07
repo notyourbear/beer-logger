@@ -27,15 +27,15 @@ class FormContainer extends Component {
     let data = {};
 
     data.location = !newLocation
-      ? this.state.locations._id
+      ? { _id: this.state.locations._id }
       : { name: this.state.newLocationName };
 
     data.user = !newUser
-      ? this.state.user._id
+      ? { _id: this.state.user._id }
       : { name: this.state.newUserName };
 
     data.beer = !newBeer
-      ? this.state.beer._id
+      ? { _id: this.state.beer._id }
       : {
           name: this.state.newBeerName,
           brewery: this.state.newBreweryName,
@@ -68,26 +68,7 @@ class FormContainer extends Component {
   handleSubmit = event => {
     event.preventDefault();
     let data = this.composeSubmitData();
-
-    // let toSend = {};
-    // toSend[this.state.key] = this.state.value;
-    //
-    // let responsePromise = fetch(`${API_SERVER_URI}drink`, {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(toSend)
-    // });
-    //
-    // responsePromise
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     this.state.handleStateUpdate(data);
-    //     this.cleanForm();
-    //   })
-    //   .catch(err => console.error(err));
+    this.props.handleSubmit(data);
   };
 
   render() {
@@ -107,7 +88,7 @@ class FormContainer extends Component {
     let availableBeers = this.props.beer;
     let availableUsers = this.props.user;
     let availableLocations = this.props.locations;
-    console.log({ availableBeers, availableUsers, availableLocations });
+
     return (
       <form id="form" onSubmit={this.handleSubmit}>
         <Checkbox
