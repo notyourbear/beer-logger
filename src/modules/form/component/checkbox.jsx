@@ -2,9 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Checkbox = ({ label, text, id, value, onChange }) => (
-  <div className="form-group">
-    <label>
-      {label}
+  <div className="input-group">
+    <div className="input-group-addon btn-block mb-3">
+      <label className="input-group-text mb-0" htmlFor={id}>
+        {label}
+      </label>
+    </div>
+    <div className="input-group-addon mb-3">
       <input
         id={id}
         name={text}
@@ -12,7 +16,7 @@ const Checkbox = ({ label, text, id, value, onChange }) => (
         checked={value}
         onChange={onChange}
       />
-    </label>
+    </div>
   </div>
 );
 

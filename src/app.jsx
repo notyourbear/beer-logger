@@ -98,7 +98,7 @@ class App extends Component {
         </nav>
         <main role="main" className="container mt-5">
           <div className="row">
-            <div className="col-xs-10 mt-5">
+            <div className="col-md-12 mt-5">
               {loading ? null : (
                 <Router>
                   <Form

@@ -91,101 +91,120 @@ class FormContainer extends Component {
 
     return (
       <form id="form" onSubmit={this.handleSubmit}>
-        <Checkbox
-          label="New user?"
-          text="newUser"
-          id="newUser"
-          value={newUser}
-          onChange={this.handleCheckboxChange}
-        />
-        {!newUser ? (
-          <Select
-            text="User"
-            id="user"
-            options={availableUsers}
-            value={user._id}
-            onChange={this.handleSelectChange}
-          />
-        ) : (
-          <Input
-            text="enter"
-            type="text"
-            id="newUserName"
-            label="user name"
-            value={newUserName}
-            onChange={this.handleInputChange}
-          />
-        )}
-        <Checkbox
-          label="New Beer?"
-          text="newBeer"
-          id="newBeer"
-          value={newBeer}
-          onChange={this.handleCheckboxChange}
-        />
-        {!newBeer ? (
-          <Select
-            text="Beer"
-            id="beer"
-            options={availableBeers}
-            value={beer._id}
-            onChange={this.handleSelectChange}
-          />
-        ) : (
-          <>
-            <Input
-              text="enter"
-              type="text"
-              id="newBeerName"
-              label="beer name"
-              value={newBeerName}
-              onChange={this.handleInputChange}
+        <div className="row">
+          <div className="col-md-8">
+            {!newUser ? (
+              <Select
+                text="User"
+                id="user"
+                options={availableUsers}
+                value={user._id}
+                onChange={this.handleSelectChange}
+              />
+            ) : (
+              <Input
+                text="enter"
+                type="text"
+                id="newUserName"
+                label="user name"
+                value={newUserName}
+                onChange={this.handleInputChange}
+              />
+            )}
+          </div>
+          <div className="col-md-4">
+            <Checkbox
+              label="New person?"
+              text="newUser"
+              id="newUser"
+              value={newUser}
+              onChange={this.handleCheckboxChange}
             />
-            <Input
-              text="enter"
-              type="text"
-              id="newBreweryName"
-              label="brewery"
-              value={newBreweryName}
-              onChange={this.handleInputChange}
-            />
-            <Input
-              text="enter"
-              type="text"
-              id="newBeerType"
-              label="type"
-              value={newBeerType}
-              onChange={this.handleInputChange}
-            />
-          </>
-        )}
-        <Checkbox
-          label="New location?"
-          text="newLocation"
-          id="newLocation"
-          value={newLocation}
-          onChange={this.handleCheckboxChange}
-        />
-        {!newLocation ? (
-          <Select
-            text="Location"
-            id="location"
-            options={availableLocations}
-            value={locations._id}
-            onChange={this.handleSelectChange}
-          />
-        ) : (
-          <Input
-            text="enter"
-            type="text"
-            id="newLocationName"
-            label="location"
-            value={newLocationName}
-            onChange={this.handleInputChange}
-          />
-        )}
+          </div>
+        </div>
 
-        <button className="btn btn-small btn-primary">Submit</button>
+        <div className="row">
+          <div className="col-md-8">
+            {!newBeer ? (
+              <Select
+                text="Beer"
+                id="beer"
+                options={availableBeers}
+                value={beer._id}
+                onChange={this.handleSelectChange}
+              />
+            ) : (
+              <>
+                <Input
+                  text="enter"
+                  type="text"
+                  id="newBeerName"
+                  label="beer name"
+                  value={newBeerName}
+                  onChange={this.handleInputChange}
+                />
+                <Input
+                  text="enter"
+                  type="text"
+                  id="newBreweryName"
+                  label="brewery"
+                  value={newBreweryName}
+                  onChange={this.handleInputChange}
+                />
+                <Input
+                  text="enter"
+                  type="text"
+                  id="newBeerType"
+                  label="type"
+                  value={newBeerType}
+                  onChange={this.handleInputChange}
+                />
+              </>
+            )}
+          </div>
+          <div className="col-md-4">
+            <Checkbox
+              label="New Beer?"
+              text="newBeer"
+              id="newBeer"
+              value={newBeer}
+              onChange={this.handleCheckboxChange}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-8">
+            {!newLocation ? (
+              <Select
+                text="Location"
+                id="location"
+                options={availableLocations}
+                value={locations._id}
+                onChange={this.handleSelectChange}
+              />
+            ) : (
+              <Input
+                text="enter"
+                type="text"
+                id="newLocationName"
+                label="location"
+                value={newLocationName}
+                onChange={this.handleInputChange}
+              />
+            )}
+          </div>
+          <div className="col-md-4">
+            <Checkbox
+              label="New place?"
+              text="newLocation"
+              id="newLocation"
+              value={newLocation}
+              onChange={this.handleCheckboxChange}
+            />
+          </div>
+        </div>
+
+        <button className="btn btn-small btn-primary btn-block">Submit</button>
       </form>
     );
   }
