@@ -2,19 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Input = ({ label, text, type, id, value, onChange }) => (
-  <div className="form-group">
-    <label>
-      {label}
-      <input
-        type={type}
-        className="form-control"
-        id={id}
-        value={value}
-        onChange={onChange}
-        onBlur={onChange}
-        required
-      />
-    </label>
+  <div className="input-group mb-3">
+    <div className="input-group-addon">
+      <label className="input-group-text mb-0" htmlFor={id}>
+        {label}
+      </label>
+    </div>
+    <input
+      className="form-control"
+      type={type}
+      id={id}
+      value={value}
+      onChange={onChange}
+      onBlur={onChange}
+      required
+    />
   </div>
 );
 

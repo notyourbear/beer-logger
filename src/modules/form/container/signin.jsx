@@ -36,7 +36,7 @@ class SignInContainer extends Component {
             text="username"
             type="text"
             id="username"
-            label="username"
+            label="Username"
             value={username}
             onChange={this.handleInputChange}
           />
@@ -44,12 +44,12 @@ class SignInContainer extends Component {
             text="password"
             type="password"
             id="password"
-            label="type"
+            label="Password"
             value={password}
             onChange={this.handleInputChange}
           />
         </>
-        <button className="btn btn-small btn-primary">Submit</button>
+        <button className="btn btn-small btn-primary btn-block">Submit</button>
       </form>
     );
   }

@@ -106,7 +106,7 @@ class FormContainer extends Component {
                 text="enter"
                 type="text"
                 id="newUserName"
-                label="user name"
+                label="Name"
                 value={newUserName}
                 onChange={this.handleInputChange}
               />
@@ -114,7 +114,7 @@ class FormContainer extends Component {
           </div>
           <div className="col-md-4">
             <Checkbox
-              label="New person?"
+              label="New Person?"
               text="newUser"
               id="newUser"
               value={newUser}
@@ -139,7 +139,7 @@ class FormContainer extends Component {
                   text="enter"
                   type="text"
                   id="newBeerName"
-                  label="beer name"
+                  label="Name"
                   value={newBeerName}
                   onChange={this.handleInputChange}
                 />
@@ -147,7 +147,7 @@ class FormContainer extends Component {
                   text="enter"
                   type="text"
                   id="newBreweryName"
-                  label="brewery"
+                  label="Brewery"
                   value={newBreweryName}
                   onChange={this.handleInputChange}
                 />
@@ -155,7 +155,7 @@ class FormContainer extends Component {
                   text="enter"
                   type="text"
                   id="newBeerType"
-                  label="type"
+                  label="Type"
                   value={newBeerType}
                   onChange={this.handleInputChange}
                 />
@@ -176,7 +176,7 @@ class FormContainer extends Component {
           <div className="col-md-8">
             {!newLocation ? (
               <Select
-                text="Location"
+                text="Place"
                 id="location"
                 options={availableLocations}
                 value={locations._id}
@@ -187,7 +187,7 @@ class FormContainer extends Component {
                 text="enter"
                 type="text"
                 id="newLocationName"
-                label="location"
+                label="Place"
                 value={newLocationName}
                 onChange={this.handleInputChange}
               />
@@ -195,7 +195,7 @@ class FormContainer extends Component {
           </div>
           <div className="col-md-4">
             <Checkbox
-              label="New place?"
+              label="New Place?"
               text="newLocation"
               id="newLocation"
               value={newLocation}
