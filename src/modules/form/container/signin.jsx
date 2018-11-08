@@ -31,7 +31,7 @@ class SignInContainer extends Component {
     let { username, password } = this.state;
     return (
       <form id="form" onSubmit={this.handleSubmit}>
-        <>
+        <div className="mb-4">
           <Input
             text="username"
             type="text"
@@ -48,7 +48,7 @@ class SignInContainer extends Component {
             value={password}
             onChange={this.handleInputChange}
           />
-        </>
+        </div>
         <button className="btn btn-small btn-primary btn-block">Submit</button>
       </form>
     );

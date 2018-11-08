@@ -28,7 +28,7 @@ module.exports = ({ mode } = { mode: "development" }) => {
       entry: ["whatwg-fetch", "promise-polyfill", "./src/index.jsx"],
       output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname, "dist")
+        path: path.resolve(__dirname, "pages")
       },
       plugins: [
         new webpack.ProgressPlugin(),

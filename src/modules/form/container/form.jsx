@@ -91,7 +91,7 @@ class FormContainer extends Component {
 
     return (
       <form id="form" onSubmit={this.handleSubmit}>
-        <div className="row">
+        <div className="row pt-2 pb-3">
           <div className="col-md-8">
             {!newUser ? (
               <Select
@@ -123,7 +123,7 @@ class FormContainer extends Component {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row pt-2 pb-3">
           <div className="col-md-8">
             {!newBeer ? (
               <Select
@@ -172,7 +172,7 @@ class FormContainer extends Component {
             />
           </div>
         </div>
-        <div className="row">
+        <div className="row pt-2 pb-3">
           <div className="col-md-8">
             {!newLocation ? (
               <Select
