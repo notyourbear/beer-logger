@@ -2,6 +2,7 @@ let mode = process.env.NODE_ENV ? process.env.NODE_ENV : "production";
 
 export const APP_CONTAINER_CLASS = "application";
 export const APP_CONTAINER_SELECTOR = `.${APP_CONTAINER_CLASS}`;
+
 export const API_SERVER_URI =
   mode === "production"
     ? "http://159.89.143.77/api/"

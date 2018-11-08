@@ -87,25 +87,34 @@ class App extends Component {
     let locations = this.state.data.location;
 
     return (
-      <>
-        <nav>
-          <Link to="/">Home</Link> <Link to="/signin">Sign In</Link>
+      <div>
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+          <Link className="navbar-brand btn btn-link" to="/">
+            Home
+          </Link>
+          <Link className="navbar-brand btn btn-link" to="/signin">
+            Sign In
+          </Link>
         </nav>
-        <main className="container">
-          {loading ? null : (
-            <Router>
-              <Form
-                path="/"
-                beer={beer}
-                user={user}
-                locations={locations}
-                handleSubmit={this.addDrink}
-              />
-              <SignIn path="/signin" handleSubmit={this.login} />
-            </Router>
-          )}
+        <main role="main" className="container mt-5">
+          <div className="row">
+            <div className="col-xs-10 mt-5">
+              {loading ? null : (
+                <Router>
+                  <Form
+                    path="/"
+                    beer={beer}
+                    user={user}
+                    locations={locations}
+                    handleSubmit={this.addDrink}
+                  />
+                  <SignIn path="/signin" handleSubmit={this.login} />
+                </Router>
+              )}
+            </div>
+          </div>
         </main>
-      </>
+      </div>
     );
   }
 }

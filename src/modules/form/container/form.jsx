@@ -92,7 +92,7 @@ class FormContainer extends Component {
     return (
       <form id="form" onSubmit={this.handleSubmit}>
         <Checkbox
-          label="is it a new user?"
+          label="New user?"
           text="newUser"
           id="newUser"
           value={newUser}
@@ -117,7 +117,7 @@ class FormContainer extends Component {
           />
         )}
         <Checkbox
-          label="is it a new beer?"
+          label="New Beer?"
           text="newBeer"
           id="newBeer"
           value={newBeer}
@@ -160,7 +160,7 @@ class FormContainer extends Component {
           </>
         )}
         <Checkbox
-          label="is it a new location?"
+          label="New location?"
           text="newLocation"
           id="newLocation"
           value={newLocation}
