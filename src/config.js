@@ -12,4 +12,4 @@ export const LOGIN_SERVER_URI =
     ? "http://159.89.143.77/signin"
     : "http://localhost:4200/signin";
 
-export const API_GETS = ["beer", "location", "user"];
+export const API_GETS = ["beer", "location", "user", "drink"];

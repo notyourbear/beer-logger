@@ -8,16 +8,23 @@ import { Router, Link, navigate } from "@reach/router";
 import Form from "./modules/form/container/form.jsx";
 import SignIn from "./modules/form/container/signin.jsx";
 
+import DrinkList from "./modules/list/container/drinkList.jsx";
+
+import NotFound from "./modules/notfound/404.jsx";
+
 import { API_SERVER_URI, API_GETS, LOGIN_SERVER_URI } from "./config";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      data: {
+      submitData: {
         beer: [],
         location: [],
         user: []
+      },
+      list: {
+        all: []
       },
       token: "",
       loading: true
@@ -31,9 +38,16 @@ class App extends Component {
 
     Promise.all(promises)
       .then(dataArray => {
-        let data = {};
-        API_GETS.forEach((endpoint, i) => (data[endpoint] = dataArray[i]));
-        this.setState({ loading: false, data });
+        let submitData = {};
+        let list = {};
+        API_GETS.forEach((endpoint, i) => {
+          if (endpoint === "drink") {
+            list.all = dataArray;
+            return;
+          }
+          submitData[endpoint] = dataArray[i];
+        });
+        this.setState({ loading: false, submitData, list });
       })
       .catch(err => {
         this.setState({ loading: false });
@@ -41,8 +55,8 @@ class App extends Component {
       });
   }
 
+  // need to update list eventually
   addDrink = data => {
-    console.log({ data, token: this.state.token });
     if (!this.state.token.length) return console.error("no token provided");
     fetch(`${API_SERVER_URI}drink`, {
       method: "POST",
@@ -57,6 +71,7 @@ class App extends Component {
       .then(handleErrors)
       .then(response => response.json())
       .then(data => console.log({ data }, "set"))
+      .then(() => navigate("/all"))
       .catch(err => console.error(err));
   };
 
@@ -82,9 +97,10 @@ class App extends Component {
   };
 
   render() {
-    let { beer, user } = this.state.data;
+    let { beer, user } = this.state.submitData;
+    let { all } = this.state.list;
     let { token, loading } = this.state;
-    let locations = this.state.data.location;
+    let locations = this.state.submitData.location;
 
     return (
       <div>
@@ -94,6 +110,9 @@ class App extends Component {
           </Link>
           <Link className="navbar-brand btn btn-link" to="/signin">
             Sign In
+          </Link>
+          <Link className="navbar-brand btn btn-link" to="/all">
+            All
           </Link>
         </nav>
         <main role="main" className="container mt-5">
@@ -109,6 +128,8 @@ class App extends Component {
                     handleSubmit={this.addDrink}
                   />
                   <SignIn path="/signin" handleSubmit={this.login} />
+                  <DrinkList path="/all" drinks={all} />
+                  <NotFound default />
                 </Router>
               )}
             </div>
