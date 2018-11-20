@@ -12,7 +12,6 @@ class DrinkList extends Component {
 
   render() {
     let { drinks } = this.state;
-    console.log({ drinks, state: this.state });
     return <OL listItems={drinks} />;
   }
 }

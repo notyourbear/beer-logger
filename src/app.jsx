@@ -42,7 +42,7 @@ class App extends Component {
         let list = {};
         API_GETS.forEach((endpoint, i) => {
           if (endpoint === "drink") {
-            list.all = dataArray;
+            list.all = dataArray[i];
             return;
           }
           submitData[endpoint] = dataArray[i];
